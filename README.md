@@ -42,7 +42,7 @@
 | cat /etc/group | Mengetahui user tergabung dalam group |
 | cat /etc/shadow | Mengetahui user dan password dalam bentuk "hash" |
 
-Contoh Membuat User Menjadi Administrator
+Contoh membuat user menjadi administrator
 ```
 nano /etc/sudoers
 
@@ -50,14 +50,14 @@ nano /etc/sudoers
 "user" ALL=(ALL:ALL) ALL
 ```
 
-## Sistem Numeric Coding
+## CHOWN, CHGRP, dan CHMOD
 | Perintah | Keterangan | Contoh |
 | --- | --- | --- |
 | CHOWN | Change Ownership | Contoh; chown user.group file |
 | CHGRP | Change Group | Contoh; chgrp group file |
 | CHMOD | Change Mode | Contoh; chmod 777 file / chmod 777 directory |
 
-Contoh CHMOD
+Contoh melakukan CHMOD
 ```
 chmod [ugoa] [=-+] [rwx] "file/directory"
 ```
