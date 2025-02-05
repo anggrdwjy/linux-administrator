@@ -145,7 +145,7 @@ nano /etc/apt/source.list
 apt-get update
 ```
 
-## Melihat IP Address dan Konfigurasi Netplan
+## Melihat IP Address dan Konfigurasi Netplan pada Linux
 Cek IP Address
 ```
 ip addr
@@ -178,7 +178,7 @@ network:
 netplan apply
 ```
 
-## FTP dan SFTP
+## FTP dan SFTP pada Server Linux
 Install FTP {Tidak direkomendasikan, kurang secure)
 ```
 apt-get install proftpd
@@ -260,7 +260,7 @@ Restart bind9
 service bind9 restart
 ```
 
-## SAMBA
+## SAMBA Server pada Linux
 Samba adalah program yang bersifat open source yang menyediakan layanan berbagi berkas (file service) dan berbagi alat pencetak (print service), resolusi nama NetBIOS, dan pengumuman layanan (NetBIOS service announcement/browsing). 
 
 Install Samba
@@ -296,7 +296,7 @@ Restart SAMBA
 service smbd restart
 ```
 
-## Router pada Server Linux
+## Membangun Router pada Server Linux
 Router berfungsi sebagai penghubung 2 jaringan atau lebih untuk meneruskan data dari satu jaringan ke jaringan lainnya. Server membutuhkan 2 port interface yang berbeda digunakan untuk UPLINK dan DOWNLINK.
 
 Mendeteksi Interface pada Server
@@ -376,7 +376,7 @@ sudo service isc-dhcp-server start
 sudo service isc-dhcp-server stop 
 ```
 
-## VPN PPTP
+## VPN PPTP Server pada Linux
 A PPTP tunnel is instantiated by communication to the peer on TCP port 1723. This TCP connection is then used to initiate and manage a GRE tunnel to the same peer.
 
 Install VPN PPTP
