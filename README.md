@@ -178,8 +178,118 @@ network:
 netplan apply
 ```
 
+## FTP dan SFTP
+Install FTP {Tidak direkomendasikan, kurang secure)
+```
+apt-get install proftpd
+```
+Menggunakan FTP
+```
+ftp://ip-addr
+```
 
+Sebelum Menggunakan SFTP, Edit konfigurasi sshd_config. Jika tidak ada sshd, Install OpenSSH lebih dahulu. 
+```
+nano /etc/ssh/sshd_config
+```
+Tambahkan di sshd_config
+```
+PermitRootLogin yes 
+```
+Restart SSH
+```
+service ssh restart
+```
+Tambahkan Password pada User
+```
+passwd "user"
+```
 
+## Domain Name Server
+BIND (singkatan dari bahasa Inggris: Berkeley Internet Name Domain) adalah server DNS yang paling umum digunakan di Internet, khususnya pada sistem operasi bertipe Unix yang secara de facto merupakan standar
 
+Install BIND
+```
+apt-get install bind9
+```
+backup db.local
+```
+cd /etc/bind
+cp db.local db.domain.net
+```
+Edit db.local
+```
+nano db.domain.net
+```
+```
+; BIND data file for local loopback interface 
+; 
+$TTL    604800 
+@       IN      SOA     domain.net. root.domain.net. ( 
+                              2         ; Serial 
+                         604800         ; Refresh 
+                          86400         ; Retry 
+                        2419200         ; Expire 
+                         604800 )       ; Negative Cache TTL 
+; 
+@       IN      NS      domain.net. 
+@       IN      A       "ip-addr" 
+@       IN      AAAA    ::1 
+```
 
+backup named.conf
+```
+cd /etc/bind
+cp named.conf named.conf.bak
+```
+Edit named.conf
+```
+nano named.conf
+```
+include "/etc/bind/named.conf.options"; 
+include "/etc/bind/named.conf.local"; 
+include "/etc/bind/named.conf.default-zones"; 
+zone "domain.net" { 
+  type master; 
+  file "/etc/bind/db.domain.net"; 
+  allow-transfer { 192.168.1.xx; }; 
+}; 
+```
+Restart bind9
+```
+service bind9 restart
+```
 
+## SAMBA
+Install Samba
+```
+apt-get install samba
+```
+Edit konfigurasi SAMBA
+```
+nano /etc/samba/smb.conf
+```
+```
+[data]
+	comment = Users profiles
+	valid users = "username"
+	path = /home/folder
+	guest ok = yes
+	browseable = yes
+	writeable = yes
+	create mask = 0600
+	directory mask = 0700
+
+[printers]
+	comment = All Printers
+	browseable = no
+```
+Memberi password pada folder dan akses
+```
+smbpasswd -a "username"
+chmod o+w /home/folder
+```
+Restart SAMBA
+```
+service smbd restart
+```
