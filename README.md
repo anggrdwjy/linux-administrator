@@ -242,9 +242,8 @@ backup named.conf
 cd /etc/bind
 cp named.conf named.conf.bak
 ```
+
 Edit named.conf
-```
-nano named.conf
 ```
 include "/etc/bind/named.conf.options"; 
 include "/etc/bind/named.conf.local"; 
@@ -255,12 +254,15 @@ zone "domain.net" {
   allow-transfer { 192.168.1.xx; }; 
 }; 
 ```
+
 Restart bind9
 ```
 service bind9 restart
 ```
 
 ## SAMBA
+Samba adalah program yang bersifat open source yang menyediakan layanan berbagi berkas (file service) dan berbagi alat pencetak (print service), resolusi nama NetBIOS, dan pengumuman layanan (NetBIOS service announcement/browsing). 
+
 Install Samba
 ```
 apt-get install samba
@@ -292,4 +294,130 @@ chmod o+w /home/folder
 Restart SAMBA
 ```
 service smbd restart
+```
+
+## Router pada Server Linux
+Router berfungsi sebagai penghubung 2 jaringan atau lebih untuk meneruskan data dari satu jaringan ke jaringan lainnya. Server membutuhkan 2 port interface yang berbeda digunakan untuk UPLINK dan DOWNLINK.
+
+Mendeteksi Interface pada Server
+```
+lshw -C network
+```
+
+Konfigurasi interface menggunakan netplan
+```
+nano /etc/netplan/50-cloud-init.yaml
+```
+
+Edit rc.local
+```
+nano /etc/rc.local
+
+#!/bin/sh -e 
+# 
+# rc.local 
+# 
+# This script is executed at the end of each multiuser runlevel. 
+# Make sure that the script will "exit 0" on success or any other 
+# value on error. 
+# 
+# In order to enable or disable this script just change the execution 
+# bits. 
+# 
+# By default this script does nothing. 
+sudo sysctl -w net.ipv4.ip_forward=1 
+/sbin/iptables -P FORWARD ACCEPT 
+/sbin/iptables --table nat -A POSTROUTING -o "port" -j MASQUERADE 
+```
+
+Ubah Change Mode
+```
+chmod 777 rc.local
+```
+
+Aktifkan Router
+```
+systemctl enable rc-local 
+```
+
+## DHCP Server pada Server Linux
+Protokol Konfigurasi Hos Dinamik (PKHD) (bahasa Inggris: Dynamic Host Configuration Protocol adalah protokol yang berbasis arsitektur client/server yang dipakai untuk memudahkan pengalokasian alamat IP dalam satu jaringan
+
+Install DHCP Server
+```
+apt-get install isc-dhcp-server
+```
+
+Backup dhcp.conf
+```
+cd /etc/dhcp
+mv dhcpd.conf dhcpd.conf.bak
+```
+
+Edit dhcp.conf
+```
+default-lease-time 600; 
+max-lease-time 7200; 
+option subnet-mask 255.255.255.0; 
+option broadcast-address 192.168.10.255; 
+option routers 192.168.10.1; 
+option domain-name-servers 8.8.8.8, 8.8.4.4; 
+option domain-name "mydomain.example"; 
+subnet 192.168.10.0 netmask 255.255.255.0 { 
+range 192.168.10.10 192.168.10.100; 
+range 192.168.10.150 192.168.10.200; 
+}
+```
+
+Perintah merestart, menjalankan dan mematikan DHCP Server
+```
+sudo service isc-dhcp-server restart 
+sudo service isc-dhcp-server start 
+sudo service isc-dhcp-server stop 
+```
+
+## VPN PPTP
+A PPTP tunnel is instantiated by communication to the peer on TCP port 1723. This TCP connection is then used to initiate and manage a GRE tunnel to the same peer.
+
+Install VPN PPTP
+```
+apt-get install pptpd
+```
+
+Konfigurasi pptp.conf
+```
+nano /etc/pptpd.conf
+
+localip 192.168.10.1 
+remoteip 192.168.10.100-200,192.168.10.201 
+```
+
+Konfigurasi Secret
+```
+nano /etc/ppp/chap-secrets
+
+#client server secret IP address
+user1 pptpd "password" *
+```
+
+Konfigurasi DNS
+```
+nano /etc/ppp/pptpd-options
+
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+```
+
+Restart VPN
+```
+service pptpd restart
+```
+
+## Port Forwarding pada Server Linux
+Port forwarding allows remote computers (for example, computers on the Internet) to connect to a specific computer or service within a private local-area network (LAN)
+
+Tambahkan IPTABLES
+```
+sudo sysctl -w net.ipv4.ip_forward=1 
+iptables -t nat -A PREROUTING -j DNAT -d 192.168.1.20 -p tcp --dport 80 --to 192.168.10.2
 ```
