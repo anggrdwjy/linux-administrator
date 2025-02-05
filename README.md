@@ -43,7 +43,6 @@ Pengaturan user dan group di linux akan membuat lebih mudah dalam membagi setiap
 | pwd | Menampilkan directory aktif |
 | su "user" | Pindah User |
 | id "user" | Menampilkan ID User dan ID Group |
-| who | Menampilkan pengguna yang sedang aktif |
 | whoami | Menampilkan user login pada saat digunakan |
 | hostname | Menampilkan nama host pada saat digunakan |
 
@@ -120,6 +119,64 @@ Find adalah perintah yang umum digunakan untuk mencari file di sistem operasi li
 | find /home -type d -empty | Mencari directory kosong  |
 | find /home -size 1M | Mencari folder dengan ukuran 1MB  |
 | cat ~/.bash_history | Menampilkan history "bash" |
+
+## Menggetahui Pengguna Lain di Server
+| Perintah | Keterangan |
+| --- | --- |
+| who | Menampilkan pengguna yang sedang aktif |
+| cat /var/log/auth.log | Menampilkan log pengguna yang login pada server |
+
+## Reset Password User Linux Melalui Recovery Mode
+Reset password Linux
+1. Reboot Server
+2. Advance options (from Bootloader)
+3. Recovery Mode
+4. Root (Drop to root shell prompt)
+```
+cat /etc/passwd | grep "user"
+passwd "user"
+```
+5. resume
+
+## Update Software Repository
+Update Lokal Repository
+```
+nano /etc/apt/source.list
+apt-get update
+```
+
+## Melihat IP Address dan Konfigurasi Netplan
+Cek IP Address
+```
+ip addr
+ifconfig (Jika tidak bisa melakukan ifconfig, perlu menginstall "apt-get install net-tools"
+```
+
+Konfigurasi Netplan
+```
+nano /etc/netplan/50-cloud-init.yaml
+```
+```
+## Static Konfigurasi
+network:
+	ethernets:
+		ens0:
+			addresses : "ip-add/netmask"
+			gateway4 : "ip-add gateway"
+			nameservers :
+				addresses: "dns"
+	version: 2
+
+## Dynamic Konfigurasi
+network:
+	ethernets:
+		ens0:
+			dhcp4: true
+	version: 2
+```
+```
+netplan apply
+```
 
 
 
