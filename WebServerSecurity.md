@@ -7,6 +7,16 @@ NGINX
 ```
 cat /var/log/nginx/access.log
 ```
+Monitor Log (Live)
+```
+tail -f ./access.log
+```
+
+## Mengamankan Server dari DOS (Denial of Service)
+Tambahkan IPTABLES
+```
+iptables -I INPUT -p tcp --dport 80 -m connlimit --connlimit-above 20 --connlimit-mask 40 -j DROP
+```
 
 ## Mengamankan Apache dari NMAP
 Edit Konfigurasi Apache
