@@ -1,7 +1,3 @@
-## Informasi Web Server Security dan Firewall Akses Dibawah Ini
-* [Uncomplicated Firewall(UFW)](#UncomplicatedFirewall.md)
-* [Web Server Security](#WebServerSecurity.md)
-  
 ## Dasar Terminal Linux
 Terminal adalah aplikasi yang berbasis TUI (Text User Interface), pada setiap perintah yang akan dijalankan harus di masukkan melalui keyboard
 | Perintah | Keterangan |
