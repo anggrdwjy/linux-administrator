@@ -16,6 +16,12 @@
 | ps aux | Untuk melihat proses yang berjalan |
 | kill "-id"| Mematikan proses yang berjalan dengan id proses |
 
+Contoh mengetahui jumlah directory melalui "ls -l"
+```
+1 : file
+2 : directory
+5 : Penanda 2 (Directory) + 3 (File)
+```
 
 ## Managemen User & Group
 | Perintah | Keterangan |
@@ -61,5 +67,22 @@ Contoh melakukan CHMOD
 ```
 chmod [ugoa] [=-+] [rwx] "file/directory"
 ```
+
+## Sistem Numeric Coding
+
+
+## Sistem Letter Coding
+| Biner | Desimal | Hak |
+| --- | --- | --- |
+| 000 | 0 | Tidak memiliki hak apapun |
+| 001 | 1 | Hak eksekusi |
+| 010 | 2 | Hak menulis |
+| 011 | 3 | Hak Menulis dan mengeksekusi |
+| 100 | 4 | Hak membaca |
+| 101 | 5 | Hak Membaca dan mengeksekusi |
+| 110 | 6 | Hak Membaca dan menulis |
+| 111 | 7 | Hak Membaca, menulis dan mengeksekusi |
+
+
 
 
