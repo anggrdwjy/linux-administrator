@@ -212,6 +212,7 @@ Install BIND
 ```
 apt-get install bind9
 ```
+
 backup db.local
 ```
 cd /etc/bind
@@ -220,8 +221,7 @@ cp db.local db.domain.net
 Edit db.local
 ```
 nano db.domain.net
-```
-```
+
 ; BIND data file for local loopback interface 
 ; 
 $TTL    604800 
