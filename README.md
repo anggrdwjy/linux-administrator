@@ -36,6 +36,19 @@
 | whoami | Menampilkan user login pada saat digunakan |
 | hostname | Menampilkan nama host pada saat digunakan |
 
+| Directory | Keterangan |
+| --- | --- |
+| cat /etc/passwd | Mengetahui user di Linux |
+| cat /etc/group | Mengetahui user tergabung dalam group |
+| cat /etc/shadow | Mengetahui user dan password dalam bentuk "hash" |
+
+Contoh Membuat User Menjadi Administrator
+```
+nano /etc/sudoers
+
+#Tambahkan
+"user" ALL=(ALL:ALL) ALL
+```
 
 ## Sistem Numeric Coding
 | Perintah | Keterangan | Contoh |
@@ -44,7 +57,9 @@
 | CHGRP | Change Group | Contoh; chgrp group file |
 | CHMOD | Change Mode | Contoh; chmod 777 file / chmod 777 directory |
 
-Example
+Contoh CHMOD
 ```
 chmod [ugoa] [=-+] [rwx] "file/directory"
 ```
+
+
