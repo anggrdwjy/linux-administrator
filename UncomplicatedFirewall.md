@@ -1,5 +1,5 @@
-## Firewall di Linux
-Scanning Firewall menggunakan NMAP
+## Firewall pada Server Linux
+Scanning Port menggunakan NMAP
 ```
 nmap ip-addr
 nmap -A ip-addr
