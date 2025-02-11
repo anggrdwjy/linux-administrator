@@ -145,14 +145,14 @@ nano /etc/apt/source.list
 apt-get update
 ```
 
-## Melihat IP Address dan Konfigurasi Netplan pada Linux
+## Konfigurasi IP Address
 Cek IP Address
 ```
 ip addr
 ifconfig (Jika tidak bisa melakukan ifconfig, perlu menginstall "apt-get install net-tools"
 ```
 
-Konfigurasi Netplan
+Konfigurasi Menggunakan Netplan
 ```
 nano /etc/netplan/50-cloud-init.yaml
 ```
@@ -176,6 +176,9 @@ network:
 ```
 ```
 netplan apply
+```
+```
+systemctl restart networking
 ```
 
 ## FTP dan SFTP pada Server Linux
